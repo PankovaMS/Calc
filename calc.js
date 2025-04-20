@@ -10,7 +10,7 @@ function limitInput(selector, pattern) {
       (e.data ?? '') +
       input.value.slice(input.selectionEnd);
 
-    const testValue = newValue.replace(',', '.').replace(/\s+/g, '');
+    const testValue = newValue.replace(',', '.');
     if (!testValue.match(pattern)) {
       e.preventDefault(); // блокируем ввод
     }
