@@ -5,6 +5,10 @@ function limitInput(selector, pattern) {
   const input = document.querySelector(selector);
 
   input.addEventListener('beforeinput', (e) => {
+    if (e.data === ' ') {
+      e.preventDefault();
+      return;
+    }
     const newValue =
       input.value.slice(0, input.selectionStart) +
       (e.data ?? '') +
