@@ -21,7 +21,7 @@ function limitInput(selector, pattern) {
   });
 
   input.addEventListener('input', () => {
-    input.value = input.value.replace(',', '.').replace(/\s+/g, '');
+    input.value = input.value.replace(',', '.');
   });
 }
 
