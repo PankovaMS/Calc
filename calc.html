@@ -21,11 +21,8 @@
           <input
             id="months"
             type="text"
-            min="1"
-            max="120"
             placeholder="от 1 до 120 месяцев"
             required
-            step="0.01"
             autocomplete="off"
           >
         </p>
@@ -34,12 +31,9 @@
           <input
             id="rate"
             type="text"
-            min="1"
-            max="40"
             size="2"
             placeholder="от 1 до 40"
             required
-            step="1"
             autocomplete="off"
           >
         </p>
@@ -48,22 +42,19 @@
           <input
             id="sum"
             type="text"
-            min="1000"
-            max="10000000"
             placeholder="от 1000р до 10 000 000 р"
             required
-            step="1000"
             autocomplete="off"
           >
         </p>
       </div>
       <button class="btn">Рассчитать</button>
       <p>
-        <label for="">Доход общий:</label>
+        <label for="totalIncome">Доход общий:</label>
         <output id="totalIncome"></output>
       </p>
       <p>
-        <label for="">Доход в месяц:</label>
+        <label for="monthlyIncome">Доход в месяц:</label>
         <output id="monthlyIncome"></output>
       </p>
     </div>
