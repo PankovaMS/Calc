@@ -1,40 +1,24 @@
-let totalIncome = 0;
-let monthlyIncome = 0;
-
-function limitInput(selector, pattern) {
-  const input = document.querySelector(selector);
-
-  input.addEventListener('beforeinput', (e) => {
-    if (e.data === ' ') {
-      e.preventDefault();
-      return;
-    }
-    const newValue =
-      input.value.slice(0, input.selectionStart) +
-      (e.data ?? '') +
-      input.value.slice(input.selectionEnd);
-
-    const testValue = newValue.replace(',', '.');
-    if (!testValue.match(pattern)) {
-      e.preventDefault(); // блокируем ввод
-    }
-  });
-
-  input.addEventListener('input', () => {
-    input.value = input.value.replace(',', '.');
-  });
+function limitInput(selector, regex) {
+    const input = document.querySelector(selector);
+    input.addEventListener('input', () => {
+        if (!regex.test(input.value)) {
+            input.classList.add('input-error');
+        } else {
+            input.classList.remove('input-error');
+        }
+    });
 }
 
-limitInput('#months', /^\d{0,3}$/);  // до 3 цифр
-limitInput('#rate', /^\d{0,2}(\.\d{0,2})?$/);    // до 2 цифр + до 2 после точки
-limitInput('#sum', /^\d{0,8}$/);                 // 4–8 цифр              // 4–8 цифр
+limitInput('#months', /^(?:[1-9]|[1-9]\d|1[01]\d|120)$/);  // до 3 цифр
+limitInput('#rate', /^(?:[1-9]|[1-3][0-9]|40)([.,]\d{1,2})?$/);    // до 2 цифр + до 2 после точки
+limitInput('#sum', /^(?:[1-9]\d{3,6}|10000000)$/);                           // 4–8 цифр
 function calc () {
     const monthInput = document.querySelector('#months');
     const rateInput = document.querySelector('#rate');
     const sumInput = document.querySelector('#sum');
 
     let month = Number(monthInput.value);
-    let rate  = Number(rateInput.value);
+    let rate  = Number(rateInput.value.replace(',', '.'));
     let sum   = Number(sumInput.value);
 
     // валидация
@@ -53,8 +37,8 @@ function calc () {
         return;
     }
 
-    const totalIncome = sum * ((1 + rate / 100 / 12) ** month);
-    const monthlyIncome = (totalIncome - sum) / month;
+    let totalIncome = sum * ((1 + rate / 100 / 12) ** month);
+    let monthlyIncome = (totalIncome - sum) / month;
 
     if (sum >= 1400000) {
         alert('Осторожно: вклад не застрахован государством!');

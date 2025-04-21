@@ -1,5 +1,8 @@
 @import url(reset.css);
-
+.input-error {
+  border: 2px solid red;
+  background-color: #ffecec;
+}
 .wrapper {
   display: flex;
   flex-direction: column;
