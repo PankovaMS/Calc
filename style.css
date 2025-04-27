@@ -8,6 +8,7 @@
   text-align: center;
   min-height: 100vh;
 }
+
 .overpass-500 {
   font-family: "Overpass", sans-serif;
   font-optical-sizing: auto;
@@ -27,8 +28,8 @@ button {
   cursor: pointer;
 }
 button:active {
-    filter: brightness(90%);
-  }
+  filter: brightness(90%);
+}
 
 p {
   margin: 2vh;
