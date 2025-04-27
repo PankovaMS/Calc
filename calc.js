@@ -6,7 +6,7 @@ monthInput.addEventListener("beforeinput", (e) => {
   if (!e.data) return;
   const char = e.data;
   const charCode = char.charCodeAt(0);
-  if (charCode < 48 || charCode > 57) {
+  if (char === ' ' || (char < '0' || char > '9')) {
     e.preventDefault();
   }
 
@@ -24,7 +24,7 @@ rateInput.addEventListener("beforeinput", (e) => {
   if (!e.data) return;
   const char = e.data;
   const charCode = char.charCodeAt(0);
-  if ((charCode < 48 || charCode > 57) && charCode !== 44 && charCode !== 46) {
+  if (char === ' ' || ((char < '0' || char > '9') && char !== ',' && char !== '.')) {
     e.preventDefault();
   }
 
@@ -52,7 +52,7 @@ sumInput.addEventListener("beforeinput", (e) => {
   if (!e.data) return;
   const char = e.data;
   const charCode = char.charCodeAt(0);
-  if (charCode < 48 || charCode > 57) {
+  if (char === ' ' || (char < '0' || char > '9')) {
     e.preventDefault();
   }
 
