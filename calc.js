@@ -2,8 +2,9 @@ const monthInput = document.querySelector("#months");
 const rateInput = document.querySelector("#rate");
 const sumInput = document.querySelector("#sum");
 
-monthInput.addEventListener("keypress", (e) => {
-  const char = e.key;
+monthInput.addEventListener("beforeinput", (e) => {
+  if (!e.data) return;
+  const char = e.data;
   const charCode = char.charCodeAt(0);
   if (charCode < 48 || charCode > 57) {
     e.preventDefault();
@@ -19,8 +20,9 @@ monthInput.addEventListener("keypress", (e) => {
 
 });
 
-rateInput.addEventListener("keypress", (e) => {
-  const char = e.key;
+rateInput.addEventListener("beforeinput", (e) => {
+  if (!e.data) return;
+  const char = e.data;
   const charCode = char.charCodeAt(0);
   if ((charCode < 48 || charCode > 57) && charCode !== 44 && charCode !== 46) {
     e.preventDefault();
@@ -46,8 +48,9 @@ rateInput.addEventListener("keypress", (e) => {
 
 });
 
-sumInput.addEventListener("keypress", (e) => {
-  const char = e.key;
+sumInput.addEventListener("beforeinput", (e) => {
+  if (!e.data) return;
+  const char = e.data;
   const charCode = char.charCodeAt(0);
   if (charCode < 48 || charCode > 57) {
     e.preventDefault();
