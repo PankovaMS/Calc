@@ -4,67 +4,121 @@ const sumInput = document.querySelector("#sum");
 
 monthInput.addEventListener("beforeinput", (e) => {
   if (!e.data) return;
-  const char = e.data;
-  const charCode = char.charCodeAt(0);
-  if (char === ' ' || (char < '0' || char > '9')) {
+  
+  // Только цифры
+  if (e.data < "0" || e.data > "9") {
     e.preventDefault();
+    return;
   }
 
-  if (char === "0" && e.target.value.length === 0) {
+  // Нельзя начинать с 0
+  if (e.data === "0" && e.target.value.length === 0) {
     e.preventDefault();
+    return;
   }
-
-  if (e.target.value.length >= 3 ) {
-    e.preventDefault();
-  }
-
-});
-
-rateInput.addEventListener("beforeinput", (e) => {
-  if (!e.data) return;
-  const char = e.data;
-  const charCode = char.charCodeAt(0);
-  if (char === ' ' || ((char < '0' || char > '9') && char !== ',' && char !== '.')) {
-    e.preventDefault();
-  }
-
-  if (
-    (char === "0" || char === "," || char === ".") &&
-    e.target.value.length === 0
-  ) {
-    e.preventDefault();
-  }
-
-  if (
-    (char === "," || char === ".") &&
-    (e.target.value.includes(",") || e.target.value.includes("."))
-  ) {
-    e.preventDefault();
-  }
-
-  if (e.target.value.length >= 5) {
-    e.preventDefault();
-  }
-
 });
 
 sumInput.addEventListener("beforeinput", (e) => {
   if (!e.data) return;
-  const char = e.data;
-  const charCode = char.charCodeAt(0);
-  if (char === ' ' || (char < '0' || char > '9')) {
+  
+  // Только цифры
+  if (e.data < "0" || e.data > "9") {
     e.preventDefault();
+    return;
   }
 
-  if (char === "0" && e.target.value.length === 0) {
+  // Нельзя начинать с 0
+  if (e.data === "0" && e.target.value.length === 0) {
     e.preventDefault();
+    return;
   }
-
-  if (e.target.value.length >= 8) {
-    e.preventDefault();
-  }
-
 });
+
+rateInput.addEventListener("beforeinput", (e) => {
+  if (!e.data) return;
+  
+  const allowed = "0123456789,.";
+  if (!allowed.includes(e.data)) {
+    e.preventDefault();
+    return;
+  }
+
+  // Нельзя начинать с 0, запятой или точки
+  if ((e.data === "0" || e.data === "," || e.data === ".") && e.target.value.length === 0) {
+    e.preventDefault();
+    return;
+  }
+
+  // Блокировать вторую запятую или точку
+  if ((e.data === "," || e.data === ".") && (e.target.value.includes(",") || e.target.value.includes("."))) {
+    e.preventDefault();
+    return;
+  }
+});
+
+// monthInput.addEventListener("beforeinput", (e) => {
+//   if (!e.data) return;
+//   const char = e.data;
+//   const charCode = char.charCodeAt(0);
+//   if (char === ' ' || (char < '0' || char > '9')) {
+//     e.preventDefault();
+//   }
+
+//   if (char === "0" && e.target.value.length === 0) {
+//     e.preventDefault();
+//   }
+
+//   if (e.target.value.length >= 3 ) {
+//     e.preventDefault();
+//   }
+
+// });
+
+// rateInput.addEventListener("beforeinput", (e) => {
+//   if (!e.data) return;
+//   const char = e.data;
+//   const charCode = char.charCodeAt(0);
+//   if (char === ' ' || ((char < '0' || char > '9') && char !== ',' && char !== '.')) {
+//     e.preventDefault();
+//   }
+
+//   if (
+//     (char === "0" || char === "," || char === ".") &&
+//     e.target.value.length === 0
+//   ) {
+//     e.preventDefault();
+//   }
+
+//   if (
+//     (char === "," || char === ".") &&
+//     (e.target.value.includes(",") || e.target.value.includes("."))
+//   ) {
+//     e.preventDefault();
+//   }
+
+//   if (e.target.value.length >= 5) {
+//     e.preventDefault();
+//   }
+
+// });
+
+// sumInput.addEventListener("beforeinput", (e) => {
+//   if (!e.data) return;
+//   const char = e.data;
+//   const charCode = char.charCodeAt(0);
+//   if (char === ' ' || (char < '0' || char > '9')) {
+//     e.preventDefault();
+//   }
+
+//   if (char === "0" && e.target.value.length === 0) {
+//     e.preventDefault();
+//   }
+
+//   if (e.target.value.length >= 8) {
+//     e.preventDefault();
+//   }
+
+// });
 
 function calc() {
   let month = Number(monthInput.value);
