@@ -21,10 +21,11 @@
           <input
             id="months"
             type="text"
+            maxlength="3"
             placeholder="от 1 до 120 месяцев"
             required
             autocomplete="off"
-          >
+          />
         </p>
         <p>
           <label for="rate">Процентная ставка (%):</label>
@@ -33,9 +34,10 @@
             type="text"
             size="2"
             placeholder="от 1 до 40"
+            maxlength="5"
             required
             autocomplete="off"
-          >
+          />
         </p>
         <p>
           <label for="sum">Сумма вклада:</label>
@@ -43,12 +45,17 @@
             id="sum"
             type="text"
             placeholder="от 1000р до 10 000 000 р"
+            maxlength="8"
             required
             autocomplete="off"
-          >
+          />
         </p>
       </div>
-      <button class="btn">Рассчитать</button>
+      <div>
+        <button class="btn" id="calc">Рассчитать</button>
+        <button class="btn" id="reset">Сброс</button>
+      </div>
+      
       <p>
         <label for="totalIncome">Доход общий:</label>
         <output id="totalIncome"></output>

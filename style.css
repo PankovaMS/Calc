@@ -1,8 +1,5 @@
 @import url(reset.css);
-.input-error {
-  border: 2px solid red;
-  background-color: #ffecec;
-}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -10,11 +7,6 @@
   align-items: center;
   text-align: center;
   min-height: 100vh;
-}
-.border {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
 }
 .overpass-500 {
   font-family: "Overpass", sans-serif;
