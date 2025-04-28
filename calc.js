@@ -70,7 +70,7 @@ rateInput.addEventListener("beforeinput", (e) => {
     const digitsAfterSeparator = e.target.value.length - separatorIndex - 1;
   
      // Если курсор стоит после запятой или точки
-    if (e.target.selectionStart > separatorIndex && digitsAfterSeparator >= 2) {
+    if (e.target.selectionStart > separatorIndex && digitsAfterSeparator >= 1) {
       e.preventDefault();
       return;
     }
@@ -153,7 +153,7 @@ function calc() {
   }
 
   if (isNaN(rate) || rate < 1 || rate > 40) {
-    alert("Процентная ставка должна быть от 1 до 40 %.");
+    alert("Процентная ставка должна быть от 1.0 до 40.0 %.");
     return;
   }
 
