@@ -35,8 +35,10 @@ sumInput.addEventListener("beforeinput", (e) => {
 });
 
 rateInput.addEventListener("beforeinput", (e) => {
+  // Если не введен символ - не обрабатывать
   if (!e.data) return;
-  
+
+// если введенный символ не входит в allowed, то запретить ввод
   const allowed = "0123456789,.";
   if (!allowed.includes(e.data)) {
     e.preventDefault();
@@ -50,9 +52,28 @@ rateInput.addEventListener("beforeinput", (e) => {
   }
 
   // Блокировать вторую запятую или точку
-  if ((e.data === "," || e.data === ".") && (e.target.value.includes(",") || e.target.value.includes("."))) {
+  if ((e.data === "," && (e.target.value.includes(",") || e.target.value.includes("."))) ||
+      (e.data === "." && (e.target.value.includes(",") || e.target.value.includes(".")))) {
     e.preventDefault();
     return;
+  }
+
+  // Ограничение: максимум 2 цифры после запятой или точки
+  let separatorIndex = e.target.value.indexOf(",");
+
+  if (separatorIndex === -1) {
+    separatorIndex = e.target.value.indexOf(".");
+  }
+  
+  // Если разделитель есть, ограничиваем количество символов после него двумя
+  if (separatorIndex !== -1) {
+    const digitsAfterSeparator = e.target.value.length - separatorIndex - 1;
+  
+     // Если курсор стоит после запятой или точки
+    if (e.target.selectionStart > separatorIndex && digitsAfterSeparator >= 2) {
+      e.preventDefault();
+      return;
+    }
   }
 });
 
