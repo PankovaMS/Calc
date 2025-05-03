@@ -2,80 +2,158 @@ const monthInput = document.querySelector("#months");
 const rateInput = document.querySelector("#rate");
 const sumInput = document.querySelector("#sum");
 
-monthInput.addEventListener("beforeinput", (e) => {
-  if (!e.data) return;
+monthInput.addEventListener("input", (e) => {
+  let v = e.target.value
+  //замена всего ненужного на пустую строку
+  v = v.replace(/[^\d]/g, '');
+
+  // Удаляем ведущие нули
+  v = v.replace(/^0+/, '');
+  e.target.value = v
+});
+// заменить всё, что больше 120 на 120
+const MAX_MONTH = 120;
+const MIN_MONTH = 1;
+monthInput.addEventListener('blur', e => {
+
+  let v = Number(e.target.value)
+
+  if (v > MAX_MONTH) {
+    e.target.value = MAX_MONTH
+  }
+  if (v < MIN_MONTH){
+    e.target.value = MIN_MONTH
+  }
+});
+rateInput.addEventListener('input', (e) => {
+  let v = e.target.value
+
+
+  v = v.replace(/,/g, '.');
+
+   //замена всего ненужного на пустую строку
+   v = v.replace(/[^\d.]/g, '');
+
+  // Удаляем ведущие нули
+  v = v.replace(/^0+/, '');
   
-  // Только цифры
-  if (e.data < "0" || e.data > "9") {
-    e.preventDefault();
-    return;
+  if (v.startsWith('.')) {
+    v = "";
   }
 
-  // Нельзя начинать с 0
-  if (e.data === "0" && e.target.value.length === 0) {
-    e.preventDefault();
-    return;
+   // разделитель
+     let parts = v.split('.')
+   // не больше 2 символов после разделителя
+     if (parts.length >= 2) {
+       parts[1] = parts[1].slice(0, 2)
+       v = `${parts[0]}.${parts[1]}`
+     }
+   
+     e.target.value = v
+});
+// заменить всё, что больше 40.0 на 40.0
+const MAX_RATE = 40.0;
+const MIN_RATE = 1.0;
+rateInput.addEventListener('blur', e => {
+
+  let v = Number(e.target.value)
+
+  if (v > MAX_RATE) {
+    e.target.value = MAX_RATE
+  }
+  if (v < MIN_RATE) {
+    e.target.value = MIN_RATE
   }
 });
 
-sumInput.addEventListener("beforeinput", (e) => {
-  if (!e.data) return;
-  
-  // Только цифры
-  if (e.data < "0" || e.data > "9") {
-    e.preventDefault();
-    return;
-  }
+sumInput.addEventListener('input', (e) => {
+  let v = e.target.value
 
-  // Нельзя начинать с 0
-  if (e.data === "0" && e.target.value.length === 0) {
-    e.preventDefault();
-    return;
+   //замена всего ненужного на пустую строку
+   v = v.replace(/[^\d]/g, '');
+
+  // Удаляем ведущие нули
+  v = v.replace(/^0+/, '');
+   
+     e.target.value = v
+});
+
+// заменить всё, что больше 10000000 на 10000000 
+const MAX_SUM = 10000000;
+const MIN_SUM = 1000;
+sumInput.addEventListener('blur', e => {
+
+  let v = Number(e.target.value)
+
+  if (v > MAX_SUM) {
+    e.target.value = MAX_SUM
+  }
+  if (v < MIN_SUM) {
+    e.target.value = MIN_SUM
   }
 });
 
-rateInput.addEventListener("beforeinput", (e) => {
-  // Если не введен символ - не обрабатывать
-  if (!e.data) return;
 
-// если введенный символ не входит в allowed, то запретить ввод
-  const allowed = "0123456789,.";
-  if (!allowed.includes(e.data)) {
-    e.preventDefault();
-    return;
-  }
+// sumInput.addEventListener("input", (e) => {
+//   let v = e.target.value
+//   //замена , на .
+//     v = v.replace(/,/g, '.');
+    
+//   // Только цифры
+//   if (e.data < "0" || e.data > "9") {
+//     e.preventDefault();
+//     return;
+//   }
 
-  // Нельзя начинать с 0, запятой или точки
-  if ((e.data === "0" || e.data === "," || e.data === ".") && e.target.value.length === 0) {
-    e.preventDefault();
-    return;
-  }
+//   // Нельзя начинать с 0
+//   if (e.data === "0" && e.target.value.length === 0) {
+//     e.preventDefault();
+//     return;
+//   }
+// });
 
-  // Блокировать вторую запятую или точку
-  if ((e.data === "," && (e.target.value.includes(",") || e.target.value.includes("."))) ||
-      (e.data === "." && (e.target.value.includes(",") || e.target.value.includes(".")))) {
-    e.preventDefault();
-    return;
-  }
+// rateInput.addEventListener("input", (e) => {
+//   // Если не введен символ - не обрабатывать
+//   if (!e.data) return;
 
-  // Ограничение: максимум 2 цифры после запятой или точки
-  let separatorIndex = e.target.value.indexOf(",");
+// // если введенный символ не входит в allowed, то запретить ввод
+//   const allowed = "0123456789,.";
+//   if (!allowed.includes(e.data)) {
+//     e.preventDefault();
+//     return;
+//   }
 
-  if (separatorIndex === -1) {
-    separatorIndex = e.target.value.indexOf(".");
-  }
+//   // Нельзя начинать с 0, запятой или точки
+//   if ((e.data === "0" || e.data === "," || e.data === ".") && e.target.value.length === 0) {
+//     e.preventDefault();
+//     return;
+//   }
+
+//   // Блокировать вторую запятую или точку
+//   if ((e.data === "," && (e.target.value.includes(",") || e.target.value.includes("."))) ||
+//       (e.data === "." && (e.target.value.includes(",") || e.target.value.includes(".")))) {
+//     e.preventDefault();
+//     return;
+//   }
+
+//   // Ограничение: максимум 2 цифры после запятой или точки
+//   let separatorIndex = e.target.value.indexOf(",");
+
+//   if (separatorIndex === -1) {
+//     separatorIndex = e.target.value.indexOf(".");
+//   }
   
-  // Если разделитель есть, ограничиваем количество символов после него двумя
-  if (separatorIndex !== -1) {
-    const digitsAfterSeparator = e.target.value.length - separatorIndex - 1;
+//   // Если разделитель есть, ограничиваем количество символов после него двумя
+//   if (separatorIndex !== -1) {
+//     const digitsAfterSeparator = e.target.value.length - separatorIndex - 1;
   
-     // Если курсор стоит после запятой или точки
-    if (e.target.selectionStart > separatorIndex && digitsAfterSeparator >= 1) {
-      e.preventDefault();
-      return;
-    }
-  }
-});
+//      // Если курсор стоит после запятой или точки
+//     if (e.target.selectionStart > separatorIndex && digitsAfterSeparator >= 1) {
+//       e.preventDefault();
+//       return;
+//     }
+//   }
+// });
 
 // monthInput.addEventListener("beforeinput", (e) => {
 //   if (!e.data) return;
